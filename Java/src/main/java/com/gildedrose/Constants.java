@@ -1,18 +1,8 @@
 package com.gildedrose;
 
-public enum Constants {
-    BRIE("Aged Brie"),
-    PASS("Backstage passes to a TAFKAL80ETC concert"),
-    SULFURAS("Sulfuras, Hand of Ragnaros"),
-    CONJURED("Conjured");
-    
-    private String name;
-    
-    Constants(String n) {
-        name = n;
-    }
-    
-    public String getName() {
-        return name;
-    }
+public interface Constants {
+	public static final String BRIE = "Aged Brie";
+	public static final String PASS = "Backstage passes to a TAFKAL80ETC concert";
+	public static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
+	public static final String CONJURED = "Conjured";
 }

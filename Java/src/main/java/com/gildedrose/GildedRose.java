@@ -14,7 +14,7 @@ class GildedRose {
         if (validItems()) {
             for (Item item : items) {
                 switch(item.name) {
-                case "Aged Brie":
+                case Constants.BRIE:
                     if (item.sellIn >= 0) {
                     	//before sellIn, quality increases with age, never goes beyond 50
                     	item.quality++;
@@ -26,7 +26,7 @@ class GildedRose {
                     }
                     item.sellIn--;
                     break;
-                case "Backstage passes to a TAFKAL80ETC concert":
+                case Constants.PASS:
                     if (item.sellIn <= 0) {
                 		//quality drops to 0 after the concert
                 		item.quality = 0;
@@ -41,10 +41,10 @@ class GildedRose {
                 	}
                     item.sellIn--;
                     break;
-                case "Sulfuras, Hand of Ragnaros":
+                case Constants.SULFURAS:
                 	//nothing changes for Sulfuras
                     break;
-                case "Conjured":
+                case Constants.CONJURED:
                 	//these degrade in quality twice as fast as normal items
                 	if (item.sellIn > 0) {
                 		//quality decreases with age, twice as fast

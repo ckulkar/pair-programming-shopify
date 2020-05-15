@@ -8,7 +8,7 @@ class GildedRoseTest {
 
     @Test
     void brieQualityUpdate() {
-        Item[] items1 = new Item[] { new Item(Constants.BRIE.getName(), 1, 0) };
+        Item[] items1 = new Item[] { new Item(Constants.BRIE, 1, 0) };
         GildedRose app = new GildedRose(items1);
         
         //test quality update within range
@@ -41,7 +41,7 @@ class GildedRoseTest {
     @Test
     void passesQualityUpdate() {
         //Item - name, sellIn, quality
-        Item[] items1 = new Item[] { new Item(Constants.PASS.getName(), 9, 0) };
+        Item[] items1 = new Item[] { new Item(Constants.PASS, 9, 0) };
         GildedRose app = new GildedRose(items1);
         
         //test quality update within 10 days
@@ -69,7 +69,7 @@ class GildedRoseTest {
     //@Test
     void sulfurasNoOpUpdate() {
         //Item - name, sellIn, quality
-        Item[] items1 = new Item[] { new Item(Constants.SULFURAS.getName(), 100, 1000) };
+        Item[] items1 = new Item[] { new Item(Constants.SULFURAS, 100, 1000) };
         GildedRose app = new GildedRose(items1);
         
         //test quality updat
@@ -105,7 +105,7 @@ class GildedRoseTest {
     @Test
     void conjuredQualityUpdate() {
     	//Item - name, sellIn, quality
-        Item[] items1 = new Item[] { new Item(Constants.CONJURED.getName(), 10, 20) };
+        Item[] items1 = new Item[] { new Item(Constants.CONJURED, 10, 20) };
         GildedRose app = new GildedRose(items1);
         
         //test quality update within sellIn

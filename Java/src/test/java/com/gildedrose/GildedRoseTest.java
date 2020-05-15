@@ -102,14 +102,26 @@ class GildedRoseTest {
         
     }
     
+    @Test
     void conjuredQualityUpdate() {
-        //Item - name, sellIn, quality
-        Item[] items1 = new Item[] { new Item(Constants.CONJURED.getName(), 100, 1000) };
+    	//Item - name, sellIn, quality
+        Item[] items1 = new Item[] { new Item(Constants.CONJURED.getName(), 10, 20) };
         GildedRose app = new GildedRose(items1);
         
-        //test quality updat
+        //test quality update within sellIn
         app.updateQuality();
-        assertEquals(100, app.items[0].sellIn);
-        assertEquals(1000, app.items[0].quality);
+        assertEquals(18, app.items[0].quality);
+        
+        //test quality update after sellIn
+        app.items[0].sellIn = 0;
+        app.items[0].quality = 10;
+        app.updateQuality();
+        assertEquals(6, app.items[0].quality);
+        
+        //test non-negative quality
+        app.items[0].sellIn = 0;
+        app.items[0].quality = 1;
+        app.updateQuality();
+        assertEquals(0, app.items[0].quality);
     }
 }

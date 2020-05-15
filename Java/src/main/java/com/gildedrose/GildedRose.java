@@ -44,6 +44,19 @@ class GildedRose {
                 case "Sulfuras, Hand of Ragnaros":
                 	//nothing changes for Sulfuras
                     break;
+                case "Conjured":
+                	//these degrade in quality twice as fast as normal items
+                	if (item.sellIn > 0) {
+                		//quality decreases with age, twice as fast
+                		item.quality = item.quality - 2;
+                		ensureBoundedQuality(item);
+                	} else {
+                		//quality decreases after sellIn, twice as fast
+                		item.quality = item.quality - 4;
+                		ensureBoundedQuality(item);
+                	}
+                    item.sellIn--;
+                    break;
                 default:
                 	if (item.sellIn > 0) {
                 		//quality decreases with age

@@ -39,26 +39,45 @@ class GildedRose {
             for (Item item : items) {
                 switch(item.name) {
                 case "Aged Brie":
-                    if (item.sellIn >= 0 && item.quality < 50) {
-                        item.quality++;
-                    } else if (item.sellIn < 0) {
-                        if (item.quality <= 48) {
-                            item.quality = item.quality + 2;
-                        } else if (item.quality == 49) {
-                            item.quality++;
-                        }
+                    if (item.sellIn >= 0) {
+                    	//before sellIn, quality increases with age, never goes beyond 50
+                    	item.quality++;
+                    	ensureBoundedQuality(item);
+                    } else {
+                    	//after the sell-in, quality increases twice as fast, never beyond 50
+                    	item.quality = item.quality + 2;
+                    	ensureBoundedQuality(item);
                     }
                     item.sellIn--;
                     break;
                 case "Backstage passes to a TAFKAL80ETC concert":
-                    //Quality increases by 2 when there are 10 days or
-                    //less and by 3 when there are 5 days or less but
-                    //Quality drops to 0 after the concert
+                    if (item.sellIn <= 0) {
+                		//quality drops to 0 after the concert
+                		item.quality = 0;
+                	} else if (item.sellIn <= 5) {
+                		//within 5 days of sellIn, quality increases by 3
+                		item.quality = item.quality + 3;
+                		ensureBoundedQuality(item);
+                	} else if (item.sellIn <= 10) {
+                		//between 6 to 10 days of sellIn, quality increases by 2
+                		item.quality = item.quality + 2;
+                		ensureBoundedQuality(item);
+                	}
                     item.sellIn--;
                     break;
                 case "Sulfuras, Hand of Ragnaros":
+                	//nothing changes for Sulfuras
                     break;
                 default:
+                	if (item.sellIn > 0) {
+                		//quality decreases with age
+                		item.quality--;
+                		ensureBoundedQuality(item);
+                	} else {
+                		//quality decreases twice as fast after sellIn
+                		item.quality = item.quality - 2;
+                		ensureBoundedQuality(item);
+                	}
                     item.sellIn--;
                     break;
                 }
@@ -78,12 +97,23 @@ class GildedRose {
     }
     
     private boolean validItem(Item item) {
-        //TODO rule for sellIn - if needed
         return (item != null && 
-                item.name != null && item.name.length() > 0 &&
-                item.quality >= 0);
+                item.name != null && item.name.length() > 0);
     }
-    
+
+    /**
+     * Ensure that the quality for an item is never over 50 and below 0
+     * @param item for which the quality value needs to be evaluated
+     */
+    private void ensureBoundedQuality(Item item) {
+    	if (validItem(item)) {
+			if (item.quality > 50) {
+				item.quality = 50;
+			} else if (item.quality < 0) {
+				item.quality = 0;
+			}
+    	}
+    }
     
     public void updateQuality1() {
         for (int i = 0; i < items.length; i++) {
